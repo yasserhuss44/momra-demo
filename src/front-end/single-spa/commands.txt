@@ -1,0 +1,7 @@
+How to use it
+https://github.com/joeldenning/simple-single-spa-webpack-example
+    Clone this project
+
+    yarn install (or npm install)
+    yarn watch (or npm run watch)
+    Open up http://localhost:8080 in a web browser.
