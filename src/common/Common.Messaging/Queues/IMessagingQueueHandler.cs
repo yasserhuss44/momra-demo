@@ -5,12 +5,10 @@ namespace Common.Messaging.Queues
 {
     public interface IMessagingQueueHandler
     {
-        ResponseDetails<T, ulong> PullMessage<T>(IModel channel);
+        ResponseDetails<T, ulong> PullMessage<T>();
 
-        ResponseDetailsBase PushMessage<T>(T message, IModel channel);
+        ResponseDetailsBase PushMessage<T>(T message);
 
-        ResponseDetailsBase AckNowledge(ulong deleviryTag, IModel channel);
-
-        IModel CreateConnection();
+        ResponseDetailsBase AckNowledge(ulong deleviryTag, IModel channel);        
     }
 }

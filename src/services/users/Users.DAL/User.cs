@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Users.Model.Dtos
+namespace Users.DAL
 {
-    public class UserDto
+    public class User
     {
         public int Id { get; set; }
 
@@ -16,5 +14,4 @@ namespace Users.Model.Dtos
 
         public string Title { get; set; }
     }
-
 }
