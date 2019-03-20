@@ -2,6 +2,7 @@
 using Common.Messaging.Queues;
 using Helpers.Models;
 using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using Users.DAL;
@@ -11,12 +12,14 @@ namespace Users.BL
 {
     public class AccountLogic : IAccountLogic
     {
-        private readonly IMessagingQueueHandler _messagingQueueHandler;
+        private readonly IMessagingQueue _messagingQueueHandler;
         private UsersContext _userContext;
-
-        public AccountLogic(IMessagingQueueHandler messagingQueueHandler,UsersContext userContext)
+        private IModel _channel;
+        public AccountLogic(IMessagingQueue messagingQueueHandler,UsersContext userContext)
         {
             _messagingQueueHandler = messagingQueueHandler;
+            _channel=_messagingQueueHandler.CreateConnection("RabbitMqServiceBus");
+            _channel.DeclareQueue("UsersExchange", "UsersCreatedEventQueue", "UsersCreatedEventQueue");
             _userContext = userContext;
         }
         public ResponseDetailsBase AddNewUser(UserDto userDto)
@@ -30,7 +33,7 @@ namespace Users.BL
             _userContext.Users.Add(user);
             _userContext.SaveChanges();
             _userContext.Entry(user).GetDatabaseValues();
-            _messagingQueueHandler.PushMessage(new UserCreatedMessage { Id =user.Id,Name=user.Name  });
+            _channel.PushMessage("UsersExchange","UsersCreatedEventQueue",new UserCreatedMessage { Id =user.Id,Name=user.Name  });
             return new ResponseDetailsBase(CommonEnums.ResponseStatusCode.Success);
         }
 

@@ -30,7 +30,7 @@ namespace Users.Service
         {
             services.AddDbContext<UsersContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UsersDb")), ServiceLifetime.Transient);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddTransient<IMessagingQueueHandler, MessagingQueueHandler>();
+            services.AddTransient<IMessagingQueue, MessagingQueue>();
             services.AddTransient<IAccountLogic, AccountLogic>();
             
         }

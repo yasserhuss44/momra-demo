@@ -3,12 +3,18 @@ using RabbitMQ.Client;
 
 namespace Common.Messaging.Queues
 {
-    public interface IMessagingQueueHandler
+    public interface IMessagingQueue
     {
-        ResponseDetails<T, ulong> PullMessage<T>();
+        //ResponseDetails<T, ulong> PullMessage<T>();
 
-        ResponseDetailsBase PushMessage<T>(T message);
+        //IModel Channel { get; set; }
 
-        ResponseDetailsBase AckNowledge(ulong deleviryTag, IModel channel);        
+        IModel CreateConnection(string configSectionName);
+
+        //void DeclareQueue(string exchangeName,string queueName, string routingKey);
+
+        //ResponseDetailsBase PushMessage<T>(T message, string exchange,string routingKey);
+
+        //ResponseDetailsBase AckNowledge(ulong deleviryTag, IModel channel);        
     }
 }

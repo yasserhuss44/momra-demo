@@ -9,4 +9,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\common\Common.Helpers\Common.Helpers.csproj" />
+    <ProjectReference Include="..\..\..\common\Common.Messaging\Common.Messaging.csproj" />
+    <ProjectReference Include="..\ShopLicense.DAL\ShopLicense.DAL.csproj" />
+    <ProjectReference Include="..\ShopLicense.Model\ShopLicense.Model.csproj" />
+  </ItemGroup>
+
 </Project>
